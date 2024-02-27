@@ -8,15 +8,16 @@ let
   nixpkgs-unstable = import <nixpkgs-unstable> {config.allowUnfree = true; };
 in
 {
-  boot.kernelPackages = nixpkgs-unstable.linuxPackages;
 
   imports =
     [ # Include the results of the hardware scan.
+      <home-manager/nixos>
       ./hardware-configuration.nix
       ./drivers.nix
       ./nix-ld.nix
       ./packages.nix
       ./systemd.nix
+      ./home-manager.nix
     ];
 
   # Bootloader.
