@@ -5,12 +5,13 @@
 { config, pkgs, ... }:
 
 let
-  nixpkgs-unstable = import <nixpkgs-unstable> {config.allowUnfree = true; };
+  nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 in
 {
 
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       <home-manager/nixos>
       ./hardware-configuration.nix
       ./drivers.nix
@@ -19,6 +20,7 @@ in
       ./systemd.nix
       ./home-manager.nix
     ];
+  #nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -97,7 +99,7 @@ in
     packages = with pkgs; [
       firefox
       brave
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -108,17 +110,6 @@ in
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -146,4 +137,12 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
+  nix.optimise.automatic = true;
 }
