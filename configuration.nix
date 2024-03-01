@@ -20,11 +20,14 @@ in
       ./systemd.nix
       ./home-manager.nix
     ];
-  #nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -36,6 +39,12 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 8211 8096 ];
+    allowedUDPPorts = [ 8211 8096 ];
+  };
+
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
