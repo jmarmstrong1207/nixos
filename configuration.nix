@@ -4,24 +4,9 @@
 
 { config, pkgs, ... }:
 
-let
-  nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
-in
 {
 
-  imports =
-    [
-      # Include the results of the hardware scan.
-      <home-manager/nixos>
-      ./hardware-configuration.nix
-      ./drivers.nix
-      ./nix-ld.nix
-      ./packages.nix
-      ./systemd.nix
-      ./home-manager.nix
-    ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
