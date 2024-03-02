@@ -2,6 +2,7 @@
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  programs.direnv.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

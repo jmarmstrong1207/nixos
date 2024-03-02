@@ -44,8 +44,6 @@
   # originally installed.
   home.stateVersion = "23.11";
 
-
-
   home.sessionPath = [
     "$HOME/.config/nixos"
   ];
