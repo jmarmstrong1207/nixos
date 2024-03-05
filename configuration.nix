@@ -89,7 +89,7 @@
   users.users.critzlez = {
     isNormalUser = true;
     description = "critzlez";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
       brave

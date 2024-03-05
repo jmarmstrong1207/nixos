@@ -15,6 +15,7 @@
       modules = [
         ./hardware-configuration.nix
         ./configuration.nix
+        ./disks.nix
         ./drivers.nix
         ./nix-ld.nix
         ./packages.nix

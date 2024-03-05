@@ -4,6 +4,12 @@
   nixpkgs.config.allowUnfree = true;
   programs.direnv.enable = true;
 
+
+  virtualisation.docker = {
+    enable = true;
+    enableNvidia = true;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -11,6 +17,7 @@
     vim
     emacs
     efibootmgr
+    distrobox
 
     # GUI
     vesktop
@@ -27,6 +34,7 @@
     gnomeExtensions.arcmenu
     gnomeExtensions.tiling-assistant
     gnomeExtensions.appindicator
+    gnomeExtensions.just-perfection
 
     # Dependencies/misc.
     nixpkgs-fmt # Needed primarily for code formatting in vscode but can also be used in the terminal
