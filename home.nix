@@ -30,6 +30,7 @@
       ll = "ls -l";
       nixe = "vim ~/.config/nixos";
       nixb = "sudo nixos-rebuild switch";
+      nixu = "sudo nix flake update && sudo nixos-rebuild switch";
     };
 
     oh-my-zsh = {

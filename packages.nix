@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable-pkgs, ... }:
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -20,7 +20,7 @@
     distrobox
 
     # GUI
-    vesktop
+    unstable-pkgs.vesktop
     spotify
     transmission_4-gtk
     gnome3.gnome-tweaks
