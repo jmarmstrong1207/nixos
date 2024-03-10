@@ -2,22 +2,18 @@
   description = "Configuration flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-23.11";
-    unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    #unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, home-manager }:
-    let
-      unstable-pkgs = import unstable { system = "x86_64-linux"; config.allowUnfree = true; };
-    in
+  outputs = inputs@{ self, nixpkgs, home-manager }:
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit unstable-pkgs; };
         modules = [
           ./hardware-configuration.nix
           ./configuration.nix

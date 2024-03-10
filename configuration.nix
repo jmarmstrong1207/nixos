@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, unstable-pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
 
@@ -11,7 +11,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   
-  boot.kernelPackages = unstable-pkgs.linuxPackages;
   services.udev.packages = [ pkgs.via ];
 
   programs.zsh.enable = true;
@@ -29,8 +28,8 @@
   networking.networkmanager.enable = true;
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 8211 8096 ];
-    allowedUDPPorts = [ 8211 8096 ];
+    allowedTCPPorts = [ 8211 ];
+    allowedUDPPorts = [ 8211 ];
   };
 
 
@@ -56,8 +55,9 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.defaultSession = "plasmax11";
+  services.xserver.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver = {

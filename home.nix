@@ -30,13 +30,13 @@
       ll = "ls -l";
       nixe = "vim ~/.config/nixos";
       nixb = "sudo nixos-rebuild switch";
-      nixu = "sudo nix flake update && sudo nixos-rebuild switch";
+      nixu = "(cd ~/.config/nixos && sudo nix flake update && sudo nixos-rebuild switch)";
     };
 
     oh-my-zsh = {
       enable = true;
       custom = "/home/critzlez/.config/oh-my-zsh";
-      plugins = [ "git" "thefuck" ];
+      plugins = [ "git" "thefuck" "zoxide"];
       theme = "agnoster";
     };
   };
@@ -48,11 +48,4 @@
   home.sessionPath = [
     "$HOME/.config/nixos"
   ];
-
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 16;
-  };
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, unstable-pkgs, ... }:
+{ config, pkgs, ... }:
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -18,27 +18,21 @@
     emacs
     efibootmgr
     distrobox
-
-    # GUI
-    unstable-pkgs.vesktop
-    spotify
-    transmission_4-gtk
-    gnome3.gnome-tweaks
-    via
-    vscode.fhs
+    zoxide
     git
 
-    # Gnome Extensions
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.dash-to-panel
-    gnomeExtensions.arcmenu
-    gnomeExtensions.tiling-assistant
-    gnomeExtensions.appindicator
-    gnomeExtensions.just-perfection
+    # GUI
+    vesktop
+    spotify
+    transmission_4-gtk
+    via
+    vscode.fhs
+    thunderbird
 
     # Dependencies/misc.
     nixpkgs-fmt # Needed primarily for code formatting in vscode but can also be used in the terminal
     papirus-icon-theme
+    bibata-cursors
   ];
 
   services.jellyfin = {
