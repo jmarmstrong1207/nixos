@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
 {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ self.overlays.unstable-overlay ];
   programs.direnv.enable = true;
 
 

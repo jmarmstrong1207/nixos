@@ -3,17 +3,29 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    #unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager }:
+  outputs = inputs@{ self, nixpkgs, home-manager, unstable }:
     {
+      overlays = {
+        unstable-overlay = final: prev: {
+          unstable = import unstable { 
+            system = final.system;
+            config.allowUnfree = true;
+          };
+        };
+      };
+
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {
+          inherit self;
+        };
         modules = [
           ./hardware-configuration.nix
           ./configuration.nix
