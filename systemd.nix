@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+   /* DEPRECATED: USING UDEV RULE INSTEAD
    systemd.services.biosSleepFix = {
       # this service is "wanted by" (see systemd man pages, or other tutorials) the system
       # level that allows multiple users to login and interact with the machine non-graphically
@@ -19,4 +20,5 @@
         ExecStart = "/bin/sh -c 'if grep 'GPP0' /proc/acpi/wakeup | grep -q 'enabled'; then echo 'GPP0' > /proc/acpi/wakeup; fi'";
       };
    };
+   */
 }
