@@ -2,38 +2,42 @@
   description = "Configuration flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #pkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-alien.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, unstable }:
+  outputs = inputs@{ self, nixpkgs, home-manager, spicetify-nix, nix-alien, /*pkgs-unstable*/ }:
     {
-      overlays = {
-        unstable-overlay = final: prev: {
-          unstable = import unstable { 
-            system = final.system;
-            config.allowUnfree = true;
-          };
-        };
-      };
-
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
-          inherit self;
+          inherit inputs;
+/*
+          pkgs-unstable = pkgs-unstable.legacyPackages.${system} {
+	    inherit system;
+    	    config.allowunfree = true;
+	  };
+*/
         };
+
         modules = [
           ./hardware-configuration.nix
           ./configuration.nix
           ./disks.nix
           ./drivers.nix
-          ./nix-ld.nix
           ./packages.nix
           ./systemd.nix
+          ./udev.nix
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`

@@ -11,7 +11,7 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     plugins = [
       {
@@ -28,9 +28,9 @@
 
     shellAliases = {
       ll = "ls -l";
-      nixe = "vim ~/.config/nixos";
+      nixe = "sudo vim /etc/nixos";
       nixb = "sudo nixos-rebuild switch";
-      nixu = "(cd ~/.config/nixos && sudo nix flake update && sudo nixos-rebuild switch)";
+      nixu = "(cd /etc/nixos && sudo nix flake update && sudo nixos-rebuild switch)";
     };
 
     oh-my-zsh = {
@@ -43,7 +43,7 @@
 
   # The state version is required and should stay at the version you
   # originally installed.
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.11";
 
   home.sessionPath = [
     "$HOME/.config/nixos"
