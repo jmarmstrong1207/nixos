@@ -1,19 +1,32 @@
 { config, pkgs, ... }:
 {
- fileSystems."/mnt/intel" = {
-   device = "/dev/disk/by-uuid/b980019b-eb37-46e7-8a2e-6ba10767422a";
+ fileSystems."/mnt/230gb-ssd" = {
+   device = "/dev/disk/by-uuid/F69692379691F877";
+   #fsType = "ntfs-3g";
    options = [
     "defaults"
     "x-gvfs-show"
     "nofail"
+    "uid=1000"
    ];
  };
 
- fileSystems."/mnt/extreme" = {
-   device = "/dev/disk/by-uuid/4E21-0000";
+ fileSystems."/mnt/small-ssd" = {
+   device = "/dev/disk/by-uuid/9C58C02158BFF7DA";
    options = [
-     "users"
-     "nofail"
+    "defaults"
+    "x-gvfs-show"
+    "nofail"
+    "uid=1000"
+   ];
+ };
+
+ fileSystems."/mnt/150gb-ssd" = {
+   device = "/dev/disk/by-uuid/1d9d4be3-1994-4a94-84af-e257742fb5ef";
+   options = [
+    "defaults"
+    "x-gvfs-show"
+    "nofail"
    ];
  };
 }
