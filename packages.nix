@@ -20,6 +20,13 @@ in
   #Enable VPN
   services.mullvad-vpn.enable = true;
   services.mullvad-vpn.package = pkgs.mullvad-vpn;
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+    package = pkgs.sunshine.override { cudaSupport = true; };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -37,6 +44,7 @@ in
     transmission_4-gtk
     via
     vscode.fhs
+    bambu-studio
 
     # Dependencies/misc.
     nixpkgs-fmt # Needed primarily for code formatting in vscode but can also be used in the terminal
